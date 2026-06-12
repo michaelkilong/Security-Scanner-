@@ -377,25 +377,25 @@
 		.results { display: none; }
 		.results.on { display: block; }
 
-		/* Score Header */
-		.score-hdr {
-			display: grid;
-			grid-template-columns: 240px 1fr;
-			gap: 16px;
+		/* Score Board - wrapped in term window for consistency */
+		.score-board {
 			margin-bottom: 20px;
+		}
+		.score-board .term-body {
+			padding: 24px;
+			display: grid;
+			grid-template-columns: 220px 1fr;
+			gap: 24px;
+			align-items: center;
 		}
 
 		.score-main {
-			background: var(--surface);
-			border: 1px solid var(--border);
-			border-radius: 8px;
-			padding: 24px;
 			text-align: center;
 		}
 
 		.score-ring {
-			width: 130px;
-			height: 130px;
+			width: 140px;
+			height: 140px;
 			margin: 0 auto 14px;
 			position: relative;
 		}
@@ -423,7 +423,7 @@
 			text-align: center;
 		}
 		.score-val .num {
-			font-size: 32px;
+			font-size: 34px;
 			font-weight: 800;
 			letter-spacing: -0.03em;
 			line-height: 1;
@@ -454,17 +454,17 @@
 
 		/* Summary Bar */
 		.sum-bar {
-			background: var(--surface);
-			border: 1px solid var(--border);
-			border-radius: 8px;
-			padding: 20px 24px;
+			background: var(--surface-raised);
+			border: 1px solid var(--border-subtle);
+			border-radius: 6px;
+			padding: 20px;
 			display: flex;
 			align-items: center;
-			gap: 24px;
+			gap: 0;
 		}
 		.sum-item { text-align: center; flex: 1; }
 		.sum-item .val {
-			font-size: 22px;
+			font-size: 24px;
 			font-weight: 700;
 			letter-spacing: -0.02em;
 			color: var(--text-bright);
@@ -472,9 +472,14 @@
 		.sum-item .lbl {
 			font-size: 10px;
 			color: var(--text-muted);
-			margin-top: 2px;
+			margin-top: 3px;
 		}
-		.sum-div { width: 1px; height: 32px; background: var(--border); }
+		.sum-div {
+			width: 1px;
+			align-self: stretch;
+			background: var(--border-subtle);
+			margin: 0 16px;
+		}
 
 		/* Results Grid */
 		.grid {
@@ -485,7 +490,7 @@
 		}
 		@media (max-width: 860px) {
 			.grid { grid-template-columns: 1fr; }
-			.score-hdr { grid-template-columns: 1fr; }
+			.score-board .term-body { grid-template-columns: 1fr; }
 			.hero h1 { font-size: 24px; }
 		}
 
@@ -716,41 +721,54 @@
 
 		<!-- Results -->
 		<div class="results" id="resultsArea">
-			<!-- Score Header -->
-			<div class="score-hdr">
-				<div class="score-main">
-					<div class="score-ring">
-						<svg width="130" height="130" viewBox="0 0 130 130">
-							<circle class="score-ring-bg" cx="65" cy="65" r="57"/>
-							<circle class="score-ring-fill" id="scoreRing" cx="65" cy="65" r="57"
-								stroke-dasharray="358.14" stroke-dashoffset="358.14"/>
-						</svg>
-						<div class="score-val">
-							<div class="num" id="scoreNum">0</div>
-							<div class="lbl">Score</div>
+			<!-- Score Board -->
+			<div class="score-board">
+				<div class="term">
+					<div class="term-hdr">
+						<div class="term-dots">
+							<div class="term-dot r"></div>
+							<div class="term-dot y"></div>
+							<div class="term-dot g"></div>
 						</div>
+						<div class="term-title">scan_results — summary</div>
+						<div></div>
 					</div>
-					<div class="score-grade" id="scoreGrade">Calculating...</div>
-				</div>
-				<div class="sum-bar">
-					<div class="sum-item">
-						<div class="val" id="sumPorts">0</div>
-						<div class="lbl">Open Ports</div>
-					</div>
-					<div class="sum-div"></div>
-					<div class="sum-item">
-						<div class="val" id="sumVulns">0</div>
-						<div class="lbl">Vulnerabilities</div>
-					</div>
-					<div class="sum-div"></div>
-					<div class="sum-item">
-						<div class="val" id="sumSubdomains">0</div>
-						<div class="lbl">Subdomains</div>
-					</div>
-					<div class="sum-div"></div>
-					<div class="sum-item">
-						<div class="val" id="sumTech">0</div>
-						<div class="lbl">Technologies</div>
+					<div class="term-body">
+						<div class="score-main">
+							<div class="score-ring">
+								<svg width="140" height="140" viewBox="0 0 140 140">
+									<circle class="score-ring-bg" cx="70" cy="70" r="62"/>
+									<circle class="score-ring-fill" id="scoreRing" cx="70" cy="70" r="62"
+										stroke-dasharray="389.56" stroke-dashoffset="389.56"/>
+								</svg>
+								<div class="score-val">
+									<div class="num" id="scoreNum">0</div>
+									<div class="lbl">Score</div>
+								</div>
+							</div>
+							<div class="score-grade" id="scoreGrade">Calculating...</div>
+						</div>
+						<div class="sum-bar">
+							<div class="sum-item">
+								<div class="val" id="sumPorts">0</div>
+								<div class="lbl">Open Ports</div>
+							</div>
+							<div class="sum-div"></div>
+							<div class="sum-item">
+								<div class="val" id="sumVulns">0</div>
+								<div class="lbl">Vulnerabilities</div>
+							</div>
+							<div class="sum-div"></div>
+							<div class="sum-item">
+								<div class="val" id="sumSubdomains">0</div>
+								<div class="lbl">Subdomains</div>
+							</div>
+							<div class="sum-div"></div>
+							<div class="sum-item">
+								<div class="val" id="sumTech">0</div>
+								<div class="lbl">Technologies</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -789,7 +807,7 @@
 			const numEl = document.getElementById('scoreNum');
 			const ring = document.getElementById('scoreRing');
 			const grade = document.getElementById('scoreGrade');
-			const circumference = 2 * Math.PI * 57;
+			const circumference = 2 * Math.PI * 62;
 
 			let current = 0;
 			const duration = 1200;
